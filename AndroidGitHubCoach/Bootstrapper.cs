@@ -9,6 +9,8 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using TinyIoC;
+using AndroidGitHubCoach.Model;
 
 namespace AndroidGitHubCoach
 {
@@ -16,6 +18,9 @@ namespace AndroidGitHubCoach
     {
         public static void Run()
         {
+            TinyIoCContainer.Current.Register<IUserProvider>(new UserProvider());
+
+            TinyIoCContainer.Current.Register<LoginActivity>();
         }
     }
 }

@@ -12,9 +12,9 @@ using Android.Widget;
 
 namespace AndroidGitHubCoach.Model
 {
-    public interface IUserProvider
+    public class Event
     {
-        string GetUserName();
-        void SetUserName(string userName);
+        public string Type { get; set; }
+        public DateTime Time { get; set; }
     }
 }

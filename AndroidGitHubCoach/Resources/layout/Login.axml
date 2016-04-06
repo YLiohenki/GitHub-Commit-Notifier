@@ -3,5 +3,23 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <TextView
+        android:text="Enter Login:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1"
+        android:textSize="25dp"
+        android:layout_marginTop="50dp" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginusername"
+        android:hint="GitHub UserName"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="50dp" />
+    <Button
+        android:text="Done!"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/logindone" />
 </LinearLayout>

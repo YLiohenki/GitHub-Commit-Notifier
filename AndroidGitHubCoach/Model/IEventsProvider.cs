@@ -12,9 +12,8 @@ using Android.Widget;
 
 namespace AndroidGitHubCoach.Model
 {
-    public interface IUserProvider
+    public interface IEventsProvider
     {
-        string GetUserName();
-        void SetUserName(string userName);
+        List<Event> GetEvents(string UserName);
     }
 }
