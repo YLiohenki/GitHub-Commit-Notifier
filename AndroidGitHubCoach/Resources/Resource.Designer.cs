@@ -61,7 +61,10 @@ namespace AndroidGitHubCoach
 		{
 			
 			// aapt resource value: 0x7f050000
-			public const int MyButton = 2131034112;
+			public const int layout = 2131034112;
+			
+			// aapt resource value: 0x7f050001
+			public const int topLayout = 2131034113;
 			
 			static Id()
 			{
@@ -77,7 +80,10 @@ namespace AndroidGitHubCoach
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int Main = 2130903040;
+			public const int Login = 2130903040;
+			
+			// aapt resource value: 0x7f030001
+			public const int Main = 2130903041;
 			
 			static Layout()
 			{
@@ -97,6 +103,9 @@ namespace AndroidGitHubCoach
 			
 			// aapt resource value: 0x7f040000
 			public const int Hello = 2130968576;
+			
+			// aapt resource value: 0x7f040002
+			public const int Title = 2130968578;
 			
 			static String()
 			{

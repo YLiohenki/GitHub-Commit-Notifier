@@ -2,4 +2,5 @@
 <resources>
     <string name="Hello">Hello World, Click Me!</string>
     <string name="ApplicationName">AndroidGitHubCoach</string>
+    <string name="Title">GitHub Coach</string>
 </resources>

@@ -8,7 +8,7 @@ using Android.OS;
 
 namespace AndroidGitHubCoach
 {
-    [Activity(Label = "AndroidGitHubCoach", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "GitHub Coach", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
         int count = 1;
@@ -19,9 +19,7 @@ namespace AndroidGitHubCoach
 
             SetContentView(Resource.Layout.Main);
 
-            Button button = FindViewById<Button>(Resource.Id.MyButton);
-
-            button.Click += delegate { button.Text = string.Format("{0} clicks!", count++); };
+            StartActivity(typeof(LoginActivity));
         }
     }
 }
