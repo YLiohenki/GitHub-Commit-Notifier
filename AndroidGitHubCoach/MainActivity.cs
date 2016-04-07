@@ -7,12 +7,15 @@ using Android.Widget;
 using Android.OS;
 using AndroidGitHubCoach.Model;
 using TinyIoC;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AndroidGitHubCoach
 {
     [Activity(Label = "GitHub Coach", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
+        IEventsProvider EventsProvider;
         public bool bootstrapperRun = false;
         public MainActivity()
         {
@@ -23,6 +26,8 @@ namespace AndroidGitHubCoach
             }
 
             this.UserProvider = TinyIoCContainer.Current.Resolve<IUserProvider>();
+
+            this.EventsProvider = TinyIoCContainer.Current.Resolve<IEventsProvider>();
         }
 
         int count = 1;
@@ -38,13 +43,23 @@ namespace AndroidGitHubCoach
             if (string.IsNullOrWhiteSpace(userName))
             {
                 StartActivity(typeof(LoginActivity));
+                return;
             }
             else
             {
                 TextView textView = FindViewById<TextView>(Resource.Id.username);
                 textView.Text = userName;
             }
-
+            Task.Run(() =>
+            {
+                var events = this.EventsProvider.GetEvents(userName);
+                var lastCommitView = FindViewById<TextView>(Resource.Id.lastCommitText);
+                events.Sort((a, b) => (a.Time > b.Time ? -1 : (a.Time < b.Time ? 1 : 0)));
+                RunOnUiThread(() =>
+                {
+                    lastCommitView.Text = events.First().Time.ToString();
+                });
+            });
         }
     }
 }
