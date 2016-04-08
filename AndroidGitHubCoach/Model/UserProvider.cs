@@ -9,20 +9,27 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using System.IO;
 
 namespace AndroidGitHubCoach.Model
 {
     class UserProvider : IUserProvider
     {
-        public static string userName = null;
         public string GetUserName()
         {
+            var documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            var filePath = Path.Combine(documentsPath, "GitHubCoach.Data.Txt");
+            if (!File.Exists(filePath))
+                return null;
+            var userName = System.IO.File.ReadAllText(filePath);
             return userName;
         }
 
         public void SetUserName(string userName)
         {
-            UserProvider.userName = userName;
+            var documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            var filePath = Path.Combine(documentsPath, "GitHubCoach.Data.Txt");
+            System.IO.File.WriteAllText(filePath, userName);
         }
     }
 }
