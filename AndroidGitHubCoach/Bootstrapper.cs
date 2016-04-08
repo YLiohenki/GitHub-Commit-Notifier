@@ -18,8 +18,8 @@ namespace AndroidGitHubCoach
     {
         public static void Run()
         {
-            TinyIoCContainer.Current.Register<IUserProvider>(new UserProvider());
-            TinyIoCContainer.Current.Register<IEventsProvider>(new EventsProvider());
+            TinyIoCContainer.Current.Register<IUserProvider>(new SharedFileUserProvider());
+            TinyIoCContainer.Current.Register<IEventsProvider>(new NetEventsProvider());
 
             TinyIoCContainer.Current.Register<LoginActivity>();
         }

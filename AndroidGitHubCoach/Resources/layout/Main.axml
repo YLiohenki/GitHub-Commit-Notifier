@@ -12,23 +12,36 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_weight="0.4">
-        <TextView
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:paddingTop="30dp"
-            android:paddingBottom="30dp"
-            android:text="@string/Title" />
-        <TextView
-            android:text="UserName"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/username"
-            android:gravity="center_horizontal"
-            android:layout_marginBottom="20dp" />
+            android:id="@+id/linearLayout1">
+            <TextView
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:paddingTop="30dp"
+                android:paddingBottom="30dp"
+                android:text="@string/Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp" />
+            <Button
+                android:text="UserName"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/username"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:layout_marginRight="20dp" />
+        </LinearLayout>
         <TextView
             android:text="Last Commit"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -48,6 +61,7 @@
             android:textSize="30dp" />
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/bottomLayout"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_gravity="center"

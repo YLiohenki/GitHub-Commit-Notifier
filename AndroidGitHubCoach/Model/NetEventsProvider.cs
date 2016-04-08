@@ -9,10 +9,10 @@ using System.IO;
 
 namespace AndroidGitHubCoach.Model
 {
-    public class EventsProvider : IEventsProvider
+    public class NetEventsProvider : IEventsProvider
     {
         IUserProvider UserProvider;
-        public EventsProvider()
+        public NetEventsProvider()
         {
             this.UserProvider = TinyIoCContainer.Current.Resolve<IUserProvider>();
         }

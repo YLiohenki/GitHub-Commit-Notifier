@@ -30,7 +30,6 @@ namespace AndroidGitHubCoach
             this.EventsProvider = TinyIoCContainer.Current.Resolve<IEventsProvider>();
         }
 
-        int count = 1;
         IUserProvider UserProvider = null;
         protected override void OnCreate(Bundle bundle)
         {
@@ -47,17 +46,32 @@ namespace AndroidGitHubCoach
             }
             else
             {
-                TextView textView = FindViewById<TextView>(Resource.Id.username);
-                textView.Text = userName;
+                Button btn = FindViewById<Button>(Resource.Id.username);
+                btn.Text = userName;
+                btn.Click += delegate
+                {
+                    StartActivity(typeof(LoginActivity));
+                };
             }
             Task.Run(() =>
             {
                 var events = this.EventsProvider.GetEvents(userName);
                 var lastCommitView = FindViewById<TextView>(Resource.Id.lastCommitText);
                 events.Sort((a, b) => (a.Time > b.Time ? -1 : (a.Time < b.Time ? 1 : 0)));
+                var groups = events.GroupBy(x => x.Time.Date).Select(x => new Tuple<int, DateTime> (x.Count(), x.First().Time.Date));
+                LinearLayout bottomLayout = FindViewById<LinearLayout>(Resource.Id.bottomLayout);
                 RunOnUiThread(() =>
                 {
                     lastCommitView.Text = events.First().Time.ToString();
+                    bottomLayout.RemoveAllViews();
+                    foreach (var gr in groups.OrderByDescending(x => x.Item2))
+                    {
+                        bottomLayout.AddView(new TextView(this.BaseContext)
+                        {
+                            Text = "Date: " + gr.Item2.ToShortDateString() + " Number of commits: " + gr.Item1,
+                            TextSize = 20
+                        });
+                    }
                 });
             });
         }

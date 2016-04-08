@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +13,7 @@ using System.IO;
 
 namespace AndroidGitHubCoach.Model
 {
-    class UserProvider : IUserProvider
+    class SharedFileUserProvider : IUserProvider
     {
         public string GetUserName()
         {

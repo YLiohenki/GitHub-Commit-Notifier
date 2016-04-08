@@ -74,10 +74,12 @@
     <Compile Include="LoginActivity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Model\Event.cs" />
-    <Compile Include="Model\EventsProvider.cs" />
+    <Compile Include="Model\NetCachedEventsProvider.cs" />
+    <Compile Include="Model\NetEventsProvider.cs" />
     <Compile Include="Model\IEventsProvider.cs" />
     <Compile Include="Model\IUserProvider.cs" />
-    <Compile Include="Model\UserProvider.cs" />
+    <Compile Include="Model\SharedFileUserProvider.cs" />
+    <Compile Include="Model\InMemoryUserProvider.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TinyIoC.cs" />
