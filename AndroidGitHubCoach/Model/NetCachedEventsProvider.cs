@@ -6,6 +6,7 @@ using TinyIoC;
 using System.Json;
 using System.Threading.Tasks;
 using System.IO;
+using Android.Content;
 
 namespace AndroidGitHubCoach.Model
 {
@@ -18,19 +19,22 @@ namespace AndroidGitHubCoach.Model
             this.UserProvider = TinyIoCContainer.Current.Resolve<IUserProvider>();
             this.FileRepository = TinyIoCContainer.Current.Resolve<IRepository>();
         }
-        public List<Event> GetEvents()
+        public List<Event> GetEvents(Context context)
         {
             var events = this.FileRepository.FetchData<List<Event>>("events");
             if (events == null || events.Count == 0)
             {
-                this.Refresh();
+                this.Refresh(context);
             }
             return events;
         }
 
-        public void Refresh()
+        public void Refresh(Context context)
         {
-            var url = new Uri(@"https://api.github.com/users/" + this.UserProvider.GetUserName() + @"/events");
+            var id = context.Resources.GetString(Resource.String.clientid);
+            var secret = context.Resources.GetString(Resource.String.clientsecret);
+            var url = new Uri(@"https://api.github.com/users/" + this.UserProvider.GetUserName() + @"/events" + 
+                (string.IsNullOrWhiteSpace(id) ? "" : "?client_id=" + id + "&client_secret=" + secret));
             var events = FetchEvents(url);
             this.FileRepository.StoreData<List<Event>>("events", events);
         }

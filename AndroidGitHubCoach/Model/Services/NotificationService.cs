@@ -28,8 +28,8 @@ namespace AndroidGitHubCoach.Model.Services
         {
             if (string.IsNullOrWhiteSpace(this.UserProvider.GetUserName()))
                 return;
-            this.EventsProvider.Refresh();
-            var events = this.EventsProvider.GetEvents();
+            this.EventsProvider.Refresh(this.ApplicationContext);
+            var events = this.EventsProvider.GetEvents(this.ApplicationContext);
             if (events == null)
                 return;
             var todayEvents = events.Where(x => x.Time.Date == DateTime.Now.Date);

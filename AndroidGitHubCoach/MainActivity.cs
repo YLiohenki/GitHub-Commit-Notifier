@@ -91,8 +91,8 @@ namespace AndroidGitHubCoach
 
         public void FillUIWIthEvents()
         {
-            this.EventsProvider.Refresh();
-            var events = this.EventsProvider.GetEvents();
+            this.EventsProvider.Refresh(this.ApplicationContext);
+            var events = this.EventsProvider.GetEvents(this.ApplicationContext);
             var lastCommitView = FindViewById<TextView>(Resource.Id.lastCommitText);
             events.Sort((a, b) => (a.Time > b.Time ? -1 : (a.Time < b.Time ? 1 : 0)));
             var groups = events.GroupBy(x => x.Time.Date).Select(x => new Tuple<int, DateTime>(x.Count(), x.First().Time.Date));
