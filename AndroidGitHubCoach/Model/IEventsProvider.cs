@@ -14,6 +14,7 @@ namespace AndroidGitHubCoach.Model
 {
     public interface IEventsProvider
     {
-        List<Event> GetEvents(string UserName);
+        List<Event> GetEvents();
+        void Refresh();
     }
 }

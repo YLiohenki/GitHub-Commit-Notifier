@@ -30,12 +30,33 @@ namespace AndroidGitHubCoach
             this.EventsProvider = TinyIoCContainer.Current.Resolve<IEventsProvider>();
         }
 
+        protected void ScheduleNotificationService()
+        {
+            if (!IsAlarmSet())
+            {
+                var alarm = (AlarmManager)this.GetSystemService(Context.AlarmService);
+
+                var pendingServiceIntent = PendingIntent.GetService(this.ApplicationContext, 0, this.notificationServiceIntent, PendingIntentFlags.CancelCurrent);
+                alarm.SetRepeating(AlarmType.RtcWakeup, 0, 60000, pendingServiceIntent);
+            }
+        }
+
+        bool IsAlarmSet()
+        {
+            return PendingIntent.GetBroadcast(this, 0, this.notificationServiceIntent, PendingIntentFlags.NoCreate) != null;
+        }
+
+        Intent notificationServiceIntent = null;
+
         IUserProvider UserProvider = null;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
             SetContentView(Resource.Layout.Main);
+
+            notificationServiceIntent = new Intent("com.YLiohenki.GitHubCoach");
+            StartService(notificationServiceIntent);
 
             var userName = this.UserProvider.GetUserName();
 
@@ -55,11 +76,26 @@ namespace AndroidGitHubCoach
             }
             Task.Run(() =>
             {
-                var events = this.EventsProvider.GetEvents(userName);
-                var lastCommitView = FindViewById<TextView>(Resource.Id.lastCommitText);
-                events.Sort((a, b) => (a.Time > b.Time ? -1 : (a.Time < b.Time ? 1 : 0)));
-                var groups = events.GroupBy(x => x.Time.Date).Select(x => new Tuple<int, DateTime> (x.Count(), x.First().Time.Date));
-                LinearLayout bottomLayout = FindViewById<LinearLayout>(Resource.Id.bottomLayout);
+                this.FillUIWIthEvents();
+            });
+        }
+
+        protected override void OnStart()
+        {
+            base.OnStart();
+
+            this.ScheduleNotificationService();
+        }
+
+        public void FillUIWIthEvents()
+        {
+            var events = this.EventsProvider.GetEvents();
+            var lastCommitView = FindViewById<TextView>(Resource.Id.lastCommitText);
+            events.Sort((a, b) => (a.Time > b.Time ? -1 : (a.Time < b.Time ? 1 : 0)));
+            var groups = events.GroupBy(x => x.Time.Date).Select(x => new Tuple<int, DateTime>(x.Count(), x.First().Time.Date));
+            LinearLayout bottomLayout = FindViewById<LinearLayout>(Resource.Id.bottomLayout);
+            if (events.Count > 0)
+            {
                 RunOnUiThread(() =>
                 {
                     lastCommitView.Text = events.First().Time.ToString();
@@ -73,7 +109,7 @@ namespace AndroidGitHubCoach
                         });
                     }
                 });
-            });
+            }
         }
     }
 }

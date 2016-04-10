@@ -12,45 +12,55 @@ namespace AndroidGitHubCoach.Model
     public class NetCachedEventsProvider : IEventsProvider
     {
         IUserProvider UserProvider;
+        protected static List<Event> Events;
+        protected static DateTime LastTimeFetched;
         public NetCachedEventsProvider()
         {
             this.UserProvider = TinyIoCContainer.Current.Resolve<IUserProvider>();
         }
-        public List<Event> GetEvents(string UserName)
+        public List<Event> GetEvents()
         {
-            var webClient = new WebClient();
+            if (Events == null || Events.Count == 0 || (DateTime.UtcNow - LastTimeFetched) > TimeSpan.FromMinutes(10))
+            {
+                this.Refresh();
+            }
+            return Events;
+        }
 
+        public void Refresh()
+        {
             var url = new Uri(@"https://api.github.com/users/" + this.UserProvider.GetUserName() + @"/events");
-            var result = FetchEvents(url);
-            return result;
+            Events = FetchEvents(url);
         }
 
         private List<Event> FetchEvents(Uri url)
         {
-            // Create an HTTP web request using the URL:
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
             request.ContentType = "application/json";
             request.Method = "GET";
             request.UserAgent = "YLiohenki/GitHubCoach";
             List<Event> result = new List<Event>();
-
-            // Send the request to the server and wait for the response:
-            using (WebResponse response = request.GetResponse())
+            try
             {
-                // Get a stream representation of the HTTP web response:
-                using (Stream stream = response.GetResponseStream())
+                using (WebResponse response = request.GetResponse())
                 {
-                    // Use this stream to build a JSON document object:
-                    JsonValue jsonDoc = JsonArray.Load(stream);
-                    foreach (var jsonEvent in jsonDoc)
+                    using (Stream stream = response.GetResponseStream())
                     {
-                        var date = ((JsonValue)jsonEvent)["created_at"].ToString().Replace("\"", "");
-                        var type = ((JsonValue)jsonEvent)["type"].ToString().Replace("\"", "");
-                        result.Add(new Event() { Time = DateTime.Parse(date), Type = type });
+                        JsonValue jsonDoc = JsonArray.Load(stream);
+                        foreach (var jsonEvent in jsonDoc)
+                        {
+                            var date = ((JsonValue)jsonEvent)["created_at"].ToString().Replace("\"", "");
+                            var type = ((JsonValue)jsonEvent)["type"].ToString().Replace("\"", "");
+                            result.Add(new Event() { Time = DateTime.Parse(date), Type = type });
+                        }
+                        LastTimeFetched = DateTime.UtcNow;
+                        return result;
                     }
-                    // Return the JSON document:
-                    return result;
                 }
+            }
+            catch (WebException ex)
+            {
+                return new List<Event>();
             }
         }
     }

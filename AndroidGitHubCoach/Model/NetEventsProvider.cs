@@ -16,31 +16,29 @@ namespace AndroidGitHubCoach.Model
         {
             this.UserProvider = TinyIoCContainer.Current.Resolve<IUserProvider>();
         }
-        public List<Event> GetEvents(string UserName)
+        public List<Event> GetEvents()
         {
-            var webClient = new WebClient();
-
             var url = new Uri(@"https://api.github.com/users/" + this.UserProvider.GetUserName() + @"/events");
             var result = FetchEvents(url);
             return result;
         }
 
+        public void Refresh()
+        {
+        }
+
         private List<Event> FetchEvents(Uri url)
         {
-            // Create an HTTP web request using the URL:
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
             request.ContentType = "application/json";
             request.Method = "GET";
             request.UserAgent = "YLiohenki/GitHubCoach";
             List<Event> result = new List<Event>();
 
-            // Send the request to the server and wait for the response:
             using (WebResponse response = request.GetResponse())
             {
-                // Get a stream representation of the HTTP web response:
                 using (Stream stream = response.GetResponseStream())
                 {
-                    // Use this stream to build a JSON document object:
                     JsonValue jsonDoc = JsonArray.Load(stream);
                     foreach (var jsonEvent in jsonDoc)
                     {
@@ -48,7 +46,6 @@ namespace AndroidGitHubCoach.Model
                         var type = ((JsonValue)jsonEvent)["type"].ToString().Replace("\"", "");
                         result.Add(new Event() { Time = DateTime.Parse(date), Type = type });
                     }
-                    // Return the JSON document:
                     return result;
                 }
             }
