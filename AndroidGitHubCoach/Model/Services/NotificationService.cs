@@ -26,8 +26,12 @@ namespace AndroidGitHubCoach.Model.Services
         }
         protected override void OnHandleIntent(Intent intent)
         {
+            if (string.IsNullOrWhiteSpace(this.UserProvider.GetUserName()))
+                return;
             this.EventsProvider.Refresh();
             var events = this.EventsProvider.GetEvents();
+            if (events == null)
+                return;
             var todayEvents = events.Where(x => x.Time.Date == DateTime.Now.Date);
             if (todayEvents.Count() < 10)
             {
@@ -42,12 +46,13 @@ namespace AndroidGitHubCoach.Model.Services
                 .SetContentText(message)
                 .SetSmallIcon(Resource.Drawable.Icon);
 
+            builder.SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate);
+
             Notification notification = builder.Build();
 
             NotificationManager notificationManager =
                 GetSystemService(Context.NotificationService) as NotificationManager;
 
-            // Publish the notification:
             const int notificationId = 0;
             notificationManager.Notify(notificationId, notification);
         }

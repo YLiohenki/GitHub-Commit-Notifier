@@ -12,25 +12,27 @@ namespace AndroidGitHubCoach.Model
     public class NetCachedEventsProvider : IEventsProvider
     {
         IUserProvider UserProvider;
-        protected static List<Event> Events;
-        protected static DateTime LastTimeFetched;
+        IRepository FileRepository;
         public NetCachedEventsProvider()
         {
             this.UserProvider = TinyIoCContainer.Current.Resolve<IUserProvider>();
+            this.FileRepository = TinyIoCContainer.Current.Resolve<IRepository>();
         }
         public List<Event> GetEvents()
         {
-            if (Events == null || Events.Count == 0 || (DateTime.UtcNow - LastTimeFetched) > TimeSpan.FromMinutes(10))
+            var events = this.FileRepository.FetchData<List<Event>>("events");
+            if (events == null || events.Count == 0)
             {
                 this.Refresh();
             }
-            return Events;
+            return events;
         }
 
         public void Refresh()
         {
             var url = new Uri(@"https://api.github.com/users/" + this.UserProvider.GetUserName() + @"/events");
-            Events = FetchEvents(url);
+            var events = FetchEvents(url);
+            this.FileRepository.StoreData<List<Event>>("events", events);
         }
 
         private List<Event> FetchEvents(Uri url)
@@ -53,7 +55,6 @@ namespace AndroidGitHubCoach.Model
                             var type = ((JsonValue)jsonEvent)["type"].ToString().Replace("\"", "");
                             result.Add(new Event() { Time = DateTime.Parse(date), Type = type });
                         }
-                        LastTimeFetched = DateTime.UtcNow;
                         return result;
                     }
                 }
