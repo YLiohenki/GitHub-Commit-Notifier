@@ -39,7 +39,7 @@ namespace AndroidGitHubCoach
                 var alarm = (AlarmManager)this.GetSystemService(Context.AlarmService);
 
                 var pendingServiceIntent = PendingIntent.GetService(this.ApplicationContext, 0, this.notificationServiceIntent, PendingIntentFlags.CancelCurrent);
-                alarm.SetRepeating(AlarmType.Rtc, 0, 3000000, pendingServiceIntent);
+                alarm.SetRepeating(AlarmType.Rtc, SystemClock.ElapsedRealtime(), 3000000, pendingServiceIntent);
             }
         }
 
