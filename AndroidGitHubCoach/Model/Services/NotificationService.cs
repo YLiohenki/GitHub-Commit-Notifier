@@ -33,9 +33,9 @@ namespace AndroidGitHubCoach.Model.Services
             if (events == null)
                 return;
             var todayEvents = events.Where(x => x.Time.Date == DateTime.Now.Date);
-            if (todayEvents.Count() < 1 && DateTime.Now.Hour >= 14)
+            if (todayEvents.Count() < 1)
             {
-                this.ShowNotification("I haven't any commits today.");
+                this.ShowNotification("You haven't any commits today.");
             }
         }
 
@@ -45,8 +45,6 @@ namespace AndroidGitHubCoach.Model.Services
                 .SetContentTitle("GitHub Coach - " + this.UserProvider.GetUserName())
                 .SetContentText(message)
                 .SetSmallIcon(Resource.Drawable.Icon);
-
-            builder.SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate);
 
             Notification notification = builder.Build();
 

@@ -39,7 +39,7 @@ namespace AndroidGitHubCoach
                 var alarm = (AlarmManager)this.GetSystemService(Context.AlarmService);
 
                 var pendingServiceIntent = PendingIntent.GetService(this.ApplicationContext, 0, this.notificationServiceIntent, PendingIntentFlags.CancelCurrent);
-                alarm.SetRepeating(AlarmType.RtcWakeup, 0, 600000, pendingServiceIntent);
+                alarm.SetRepeating(AlarmType.Rtc, 0, 3000000, pendingServiceIntent);
             }
         }
 
@@ -103,14 +103,6 @@ namespace AndroidGitHubCoach
                 {
                     lastCommitView.Text = events.First().Time.ToString();
                     bottomLayout.RemoveAllViews();
-                    foreach (var gr in groups.OrderByDescending(x => x.Item2))
-                    {
-                        /*bottomLayout.AddView(new TextView(this.BaseContext)
-                        {
-                            Text = "Date: " + gr.Item2.ToShortDateString() + " Number of commits: " + gr.Item1,
-                            TextSize = 20
-                        });*/
-                    }
                     this.ShowBarchat(groups);
                 });
             }
@@ -122,7 +114,7 @@ namespace AndroidGitHubCoach
 
             var chart = new BarChartView(this)
             {
-                ItemsSource = groups.Reverse().Select(g => new BarModel { Value = g.Item1, Legend = g.Item2.Day.ToString() + "/" + g.Item2.Month.ToString() })
+                ItemsSource = groups.Select(g => new BarModel { Value = g.Item1, Legend = g.Item2.Day.ToString() + "/" + g.Item2.Month.ToString() })
             };
 
             bottomLayout.AddView(chart, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FillParent, ViewGroup.LayoutParams.FillParent));
