@@ -39,7 +39,7 @@ namespace AndroidGitHubCoach
                 var alarm = (AlarmManager)this.GetSystemService(Context.AlarmService);
 
                 var pendingServiceIntent = PendingIntent.GetService(this.ApplicationContext, 0, this.notificationServiceIntent, PendingIntentFlags.CancelCurrent);
-                alarm.SetRepeating(AlarmType.Rtc, SystemClock.ElapsedRealtime(), 3000000, pendingServiceIntent);
+                alarm.SetRepeating(AlarmType.Rtc, SystemClock.ElapsedRealtime(), 60000, pendingServiceIntent);
             }
         }
 
@@ -93,9 +93,15 @@ namespace AndroidGitHubCoach
         {
             this.EventsProvider.Refresh(this.ApplicationContext);
             var events = this.EventsProvider.GetEvents(this.ApplicationContext);
+            DateTime startOfWeek = DateTime.Today.AddDays(-1 * (int)(DateTime.Today.DayOfWeek));
+            var numbers = Enumerable.Range(0, 7);
             var lastCommitView = FindViewById<TextView>(Resource.Id.lastCommitText);
             events.Sort((a, b) => (a.Time > b.Time ? -1 : (a.Time < b.Time ? 1 : 0)));
-            var groups = events.GroupBy(x => x.Time.Date).Select(x => new Tuple<int, DateTime>(x.Count(), x.First().Time.Date));
+            var groups = numbers.Select(x =>
+            {
+                var dayEvents = events.Where(e => e.Time.Date == startOfWeek.AddDays(x));
+                return new Tuple<int, DateTime>(dayEvents.Count(), startOfWeek.AddDays(x));
+            });
             LinearLayout bottomLayout = FindViewById<LinearLayout>(Resource.Id.bottomLayout);
             if (events.Count > 0)
             {
@@ -114,7 +120,7 @@ namespace AndroidGitHubCoach
 
             var chart = new BarChartView(this)
             {
-                ItemsSource = groups.Select(g => new BarModel { Value = g.Item1, Legend = g.Item2.Day.ToString() + "/" + g.Item2.Month.ToString() })
+                ItemsSource = groups.Select(g => new BarModel { Value = g.Item1, Legend = g.Item2.DayOfWeek.ToString().Substring(0,2) })
             };
 
             bottomLayout.AddView(chart, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FillParent, ViewGroup.LayoutParams.FillParent));
