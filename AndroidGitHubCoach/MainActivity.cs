@@ -37,9 +37,8 @@ namespace AndroidGitHubCoach
             if (!IsAlarmSet())
             {
                 var alarm = (AlarmManager)this.GetSystemService(Context.AlarmService);
-
                 var pendingServiceIntent = PendingIntent.GetService(this.ApplicationContext, 0, this.notificationServiceIntent, PendingIntentFlags.CancelCurrent);
-                alarm.SetRepeating(AlarmType.Rtc, SystemClock.ElapsedRealtime(), 60000, pendingServiceIntent);
+                alarm.SetInexactRepeating(AlarmType.RtcWakeup, SystemClock.ElapsedRealtime(), 60000, pendingServiceIntent);
             }
         }
 
@@ -57,7 +56,7 @@ namespace AndroidGitHubCoach
 
             SetContentView(Resource.Layout.Main);
 
-            notificationServiceIntent = new Intent("com.YLiohenki.GitHubCoach");
+            notificationServiceIntent = new Intent("com.YLiohenki.GitHubCoach.NotificationIntent");
             StartService(notificationServiceIntent);
 
             var userName = this.UserProvider.GetUserName();

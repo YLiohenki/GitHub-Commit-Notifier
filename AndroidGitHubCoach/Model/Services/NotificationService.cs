@@ -13,8 +13,8 @@ using TinyIoC;
 
 namespace AndroidGitHubCoach.Model.Services
 {
-    [Service]
-    [IntentFilter(new String[] { "com.YLiohenki.GitHubCoach" })]
+    [Service(Name = "com.YLiohenki.GitHubCoach.NotificationService")]
+    [IntentFilter(new String[] { "com.YLiohenki.GitHubCoach.NotificationIntent" })]
     public class NotificationService : Android.App.IntentService
     {
         IEventsProvider EventsProvider;
@@ -24,6 +24,14 @@ namespace AndroidGitHubCoach.Model.Services
             this.EventsProvider = TinyIoCContainer.Current.Resolve<IEventsProvider>();
             this.UserProvider = TinyIoCContainer.Current.Resolve<IUserProvider>();
         }
+
+        [return: GeneratedEnum]
+        public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
+        {
+            base.OnStartCommand(intent, flags, startId);
+            return StartCommandResult.Sticky;
+        }
+
         protected override void OnHandleIntent(Intent intent)
         {
             if (string.IsNullOrWhiteSpace(this.UserProvider.GetUserName()))
