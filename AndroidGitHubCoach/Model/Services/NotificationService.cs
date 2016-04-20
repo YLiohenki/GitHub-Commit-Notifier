@@ -21,7 +21,11 @@ namespace AndroidGitHubCoach.Model.Services
         IUserProvider UserProvider;
         public NotificationService()
         {
-            this.EventsProvider = TinyIoCContainer.Current.Resolve<IEventsProvider>();
+            if (!TinyIoCContainer.Current.TryResolve<IEventsProvider>(out this.EventsProvider))
+            {
+                Bootstrapper.Run();
+                this.EventsProvider = TinyIoCContainer.Current.Resolve<IEventsProvider>();
+            }
             this.UserProvider = TinyIoCContainer.Current.Resolve<IUserProvider>();
         }
 
@@ -46,7 +50,7 @@ namespace AndroidGitHubCoach.Model.Services
                 this.ShowNotification("You have only " + todayEvents.Count() + " commits today.");
             }
         }
-
+        public static int notificationId = 0;
         protected void ShowNotification(string message)
         {
             Notification.Builder builder = new Notification.Builder(this)
@@ -59,8 +63,7 @@ namespace AndroidGitHubCoach.Model.Services
             NotificationManager notificationManager =
                 GetSystemService(Context.NotificationService) as NotificationManager;
 
-            const int notificationId = 0;
-            notificationManager.Notify(notificationId, notification);
+            notificationManager.Notify(notificationId++, notification);
         }
     }
 }

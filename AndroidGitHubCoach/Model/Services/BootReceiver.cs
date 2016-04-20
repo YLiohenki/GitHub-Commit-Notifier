@@ -21,7 +21,6 @@ namespace AndroidGitHubCoach.Model.Services
             Bootstrapper.Run();
             var alarm = (AlarmManager)context.GetSystemService(Context.AlarmService);
             var notificationServiceIntent = new Intent("com.YLiohenki.GitHubCoach.NotificationIntent");
-            context.StartService(notificationServiceIntent);
             var pendingServiceIntent = PendingIntent.GetService(context, 0, notificationServiceIntent, PendingIntentFlags.CancelCurrent);
             alarm.SetRepeating(AlarmType.Rtc, SystemClock.ElapsedRealtime(), 900000, pendingServiceIntent);
         }
