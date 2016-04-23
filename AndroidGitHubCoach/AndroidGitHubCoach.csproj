@@ -99,6 +99,7 @@
     <Compile Include="Model\IUserProvider.cs" />
     <Compile Include="Model\Services\BootReceiver.cs" />
     <Compile Include="Model\Services\NotificationService.cs" />
+    <Compile Include="Model\Services\ServiceScheduler.cs" />
     <Compile Include="Model\UserProvider.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

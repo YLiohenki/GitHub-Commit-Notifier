@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BarChart;
 using System.Collections.Generic;
+using AndroidGitHubCoach.Model.Services;
 
 namespace AndroidGitHubCoach
 {
@@ -36,9 +37,7 @@ namespace AndroidGitHubCoach
         {
             if (!IsAlarmSet())
             {
-                var alarm = (AlarmManager)this.GetSystemService(Context.AlarmService);
-                var pendingServiceIntent = PendingIntent.GetService(this.ApplicationContext, 0, this.notificationServiceIntent, PendingIntentFlags.CancelCurrent);
-                alarm.SetRepeating(AlarmType.Rtc, 0, 900000, pendingServiceIntent);
+                ServiceScheduler.Schedule(this.ApplicationContext);
             }
         }
 
