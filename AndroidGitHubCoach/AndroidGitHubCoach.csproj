@@ -103,6 +103,7 @@
     <Compile Include="Model\UserProvider.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsActivity.cs" />
     <Compile Include="TinyIoC.cs" />
   </ItemGroup>
   <ItemGroup>

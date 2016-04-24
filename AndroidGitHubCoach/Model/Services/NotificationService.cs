@@ -63,7 +63,7 @@ namespace AndroidGitHubCoach.Model.Services
             NotificationManager notificationManager =
                 GetSystemService(Context.NotificationService) as NotificationManager;
 
-            notificationManager.Notify(notificationId++, notification);
+            notificationManager.Notify((int)(DateTime.UtcNow.Date - new DateTime(2000, 1, 1)).TotalDays, notification);
         }
     }
 }

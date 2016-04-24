@@ -12,6 +12,7 @@ using Android.Widget;
 using TinyIoC;
 using AndroidGitHubCoach.Model;
 using AndroidGitHubCoach.Model.Services;
+using System.Threading;
 
 namespace AndroidGitHubCoach
 {
@@ -19,6 +20,7 @@ namespace AndroidGitHubCoach
     {
         public static void Run()
         {
+            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
             TinyIoCContainer.Current.Register<FileRepository>();
             TinyIoCContainer.Current.Register<IRepository>(new FileRepository());
             TinyIoCContainer.Current.Register<IUserProvider>(new UserProvider());
