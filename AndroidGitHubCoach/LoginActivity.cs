@@ -17,10 +17,10 @@ namespace AndroidGitHubCoach
     [Activity(Label = "GitHub Coach")]
     public class LoginActivity : Activity
     {
-        IUserProvider UserProvider;
+        ISettingsProvider SettingsProvider;
         public LoginActivity()
         {
-            this.UserProvider = TinyIoCContainer.Current.Resolve<IUserProvider>();
+            this.SettingsProvider = TinyIoCContainer.Current.Resolve<ISettingsProvider>();
         }
         protected override void OnCreate(Bundle savedInstanceState)
         {

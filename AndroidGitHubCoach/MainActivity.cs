@@ -1,7 +1,6 @@
 ﻿using System;
 using Android.App;
 using Android.Content;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
@@ -28,7 +27,7 @@ namespace AndroidGitHubCoach
                 bootstrapperRun = true;
             }
 
-            this.UserProvider = TinyIoCContainer.Current.Resolve<IUserProvider>();
+            this.SettingsProvider = TinyIoCContainer.Current.Resolve<ISettingsProvider>();
 
             this.EventsProvider = TinyIoCContainer.Current.Resolve<IEventsProvider>();
         }
@@ -48,7 +47,7 @@ namespace AndroidGitHubCoach
 
         Intent notificationServiceIntent = null;
 
-        IUserProvider UserProvider = null;
+        ISettingsProvider SettingsProvider = null;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -57,9 +56,9 @@ namespace AndroidGitHubCoach
 
             notificationServiceIntent = new Intent("com.YLiohenki.GitHubCoach.NotificationIntent");
 
-            var userName = this.UserProvider.GetUserName();
+            var settings = this.SettingsProvider.GetSettings();
 
-            if (string.IsNullOrWhiteSpace(userName))
+            if (settings == null || string.IsNullOrWhiteSpace(settings.UserName))
             {
                 StartActivity(typeof(LoginActivity));
                 return;
@@ -67,10 +66,10 @@ namespace AndroidGitHubCoach
             else
             {
                 Button btn = FindViewById<Button>(Resource.Id.username);
-                btn.Text = userName;
+                btn.Text = settings.UserName;
                 btn.Click += delegate
                 {
-                    StartActivity(typeof(LoginActivity));
+                    StartActivity(typeof(SettingsActivity));
                 };
             }
             Task.Run(() =>

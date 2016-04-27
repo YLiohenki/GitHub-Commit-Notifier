@@ -25,6 +25,7 @@ namespace AndroidGitHubCoach
             TinyIoCContainer.Current.Register<IRepository>(new FileRepository());
             TinyIoCContainer.Current.Register<IUserProvider>(new UserProvider());
             TinyIoCContainer.Current.Register<IEventsProvider>(new NetCachedEventsProvider());
+            TinyIoCContainer.Current.Register<ISettingsProvider>(new SettingsProvider());
 
             TinyIoCContainer.Current.Register<LoginActivity>();
             TinyIoCContainer.Current.Register<MainActivity>();

@@ -1,14 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
-using Android.OS;
 using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using TinyIoC;
 
 namespace AndroidGitHubCoach.Model.Services
@@ -63,7 +58,7 @@ namespace AndroidGitHubCoach.Model.Services
             NotificationManager notificationManager =
                 GetSystemService(Context.NotificationService) as NotificationManager;
 
-            notificationManager.Notify((int)(DateTime.UtcNow.Date - new DateTime(2000, 1, 1)).TotalDays, notification);
+            notificationManager.Notify((int)(DateTime.Now.Date - new DateTime(2000, 1, 1)).TotalDays, notification);
         }
     }
 }

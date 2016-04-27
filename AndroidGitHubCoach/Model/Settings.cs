@@ -12,9 +12,10 @@ using Android.Widget;
 
 namespace AndroidGitHubCoach.Model
 {
-    public interface IUserProvider
+    public class Settings
     {
-        string GetUserName();
-        void SetUserName(string userName);
+        public String UserName { get; set; }
+        public bool MakeSoundNotification { get; set; }
+        public bool VibrateNotification { get; set; }
     }
 }
