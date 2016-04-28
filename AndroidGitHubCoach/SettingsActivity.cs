@@ -37,13 +37,20 @@ namespace AndroidGitHubCoach
                 StartActivity(typeof(LoginActivity));
             };
 
+            var settings = this.SettingsProvider.GetSettings();
+            CheckBox useSoundCB = FindViewById<CheckBox>(Resource.Id.notificationUseSound);
+            CheckBox vibrateCB = FindViewById<CheckBox>(Resource.Id.notificationVibrate);
+            useSoundCB.Checked = settings.MakeSoundNotification;
+            vibrateCB.Checked = settings.VibrateNotification;
+
+
             Button savebtn = FindViewById<Button>(Resource.Id.saveButton);
             savebtn.Click += delegate
             {
-                var settings = this.SettingsProvider.GetSettings();
-
-                CheckBox useSoundCB = FindViewById<CheckBox>(Resource.Id.notificationUseSound);
-                CheckBox vibrateCB = FindViewById<CheckBox>(Resource.Id.notificationVibrate);
+                settings.MakeSoundNotification = useSoundCB.Checked;
+                settings.VibrateNotification = vibrateCB.Checked;
+                this.SettingsProvider.SetSettings(settings);
+                
                 StartActivity(typeof(MainActivity));
             };
         }

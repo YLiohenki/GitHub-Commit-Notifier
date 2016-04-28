@@ -41,7 +41,7 @@ namespace AndroidGitHubCoach.Model.Services
             if (events == null)
                 return;
             var todayEvents = events.Where(x => x.Time.Date == DateTime.Now.Date);
-            if (todayEvents.Count() < 1)
+            if (todayEvents.Count() < 10)
             {
                 this.ShowNotification("You haven't any commits today.");
             }

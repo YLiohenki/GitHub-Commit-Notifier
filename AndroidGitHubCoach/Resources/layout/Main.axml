@@ -30,16 +30,18 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp" />
             <Button
-                android:text="⚙"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/settingsButton"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_weight="1"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="150dp" />
+                android:foreground="@drawable/settingsicon"
+                android:height="50dp"
+                android:width="50dp"
+                android:layout_marginLeft="130dp"
+                android:foregroundGravity="fill"
+                android:background="@drawable/settingsicon" />
         </LinearLayout>
         <TextView
             android:text="Last Commit"
