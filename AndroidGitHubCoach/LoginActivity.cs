@@ -14,7 +14,7 @@ using TinyIoC;
 
 namespace AndroidGitHubCoach
 {
-    [Activity(Label = "GitHub Coach")]
+    [Activity(Label = "Login", Icon = "@drawable/icon")]
     public class LoginActivity : Activity
     {
         ISettingsProvider SettingsProvider;
@@ -40,7 +40,9 @@ namespace AndroidGitHubCoach
 
             if (!string.IsNullOrWhiteSpace(username))
             {
-                this.UserProvider.SetUserName(username);
+                var settings = this.SettingsProvider.GetSettings();
+                settings.UserName = username;
+                this.SettingsProvider.SetSettings(settings);
                 StartActivity(typeof(MainActivity));
             }
         }

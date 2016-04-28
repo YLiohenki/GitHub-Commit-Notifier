@@ -63,9 +63,6 @@ namespace AndroidGitHubCoach
 			// aapt resource value: 0x7f050009
 			public const int bottomLayout = 2131034121;
 			
-			// aapt resource value: 0x7f05000c
-			public const int checkBox2 = 2131034124;
-			
 			// aapt resource value: 0x7f050008
 			public const int lastCommitText = 2131034120;
 			
@@ -84,6 +81,15 @@ namespace AndroidGitHubCoach
 			// aapt resource value: 0x7f05000b
 			public const int notificationUseSound = 2131034123;
 			
+			// aapt resource value: 0x7f05000c
+			public const int notificationVibrate = 2131034124;
+			
+			// aapt resource value: 0x7f05000d
+			public const int saveButton = 2131034125;
+			
+			// aapt resource value: 0x7f050007
+			public const int settingsButton = 2131034119;
+			
 			// aapt resource value: 0x7f050000
 			public const int textView1 = 2131034112;
 			
@@ -92,9 +98,6 @@ namespace AndroidGitHubCoach
 			
 			// aapt resource value: 0x7f050004
 			public const int topLayout = 2131034116;
-			
-			// aapt resource value: 0x7f050007
-			public const int username = 2131034119;
 			
 			// aapt resource value: 0x7f05000a
 			public const int usernameButton = 2131034122;

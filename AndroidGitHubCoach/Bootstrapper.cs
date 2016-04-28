@@ -23,12 +23,12 @@ namespace AndroidGitHubCoach
             Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
             TinyIoCContainer.Current.Register<FileRepository>();
             TinyIoCContainer.Current.Register<IRepository>(new FileRepository());
-            TinyIoCContainer.Current.Register<IUserProvider>(new UserProvider());
-            TinyIoCContainer.Current.Register<IEventsProvider>(new NetCachedEventsProvider());
             TinyIoCContainer.Current.Register<ISettingsProvider>(new SettingsProvider());
+            TinyIoCContainer.Current.Register<IEventsProvider>(new NetCachedEventsProvider());
 
             TinyIoCContainer.Current.Register<LoginActivity>();
             TinyIoCContainer.Current.Register<MainActivity>();
+            TinyIoCContainer.Current.Register<SettingsActivity>();
             TinyIoCContainer.Current.Register<NotificationService>();
         }
     }

@@ -94,13 +94,14 @@
     <Compile Include="Model\Event.cs" />
     <Compile Include="Model\FileRepository.cs" />
     <Compile Include="Model\IRepository.cs" />
+    <Compile Include="Model\ISettingsProvider.cs" />
     <Compile Include="Model\NetCachedEventsProvider.cs" />
     <Compile Include="Model\IEventsProvider.cs" />
-    <Compile Include="Model\IUserProvider.cs" />
     <Compile Include="Model\Services\BootReceiver.cs" />
     <Compile Include="Model\Services\NotificationService.cs" />
     <Compile Include="Model\Services\ServiceScheduler.cs" />
-    <Compile Include="Model\UserProvider.cs" />
+    <Compile Include="Model\Settings.cs" />
+    <Compile Include="Model\SettingsProvider.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsActivity.cs" />

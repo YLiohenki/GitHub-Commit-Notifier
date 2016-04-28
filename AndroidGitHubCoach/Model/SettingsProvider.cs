@@ -22,7 +22,10 @@ namespace AndroidGitHubCoach.Model
         }
         public Settings GetSettings()
         {
-            return this.FileRepository.FetchData<Settings>("settings");
+            var settings = this.FileRepository.FetchData<Settings>("settings");
+            if (settings == null)
+                settings = new Settings();
+            return settings;
         }
 
         public void SetSettings(Settings settings)

@@ -36,6 +36,16 @@ namespace AndroidGitHubCoach
             {
                 StartActivity(typeof(LoginActivity));
             };
+
+            Button savebtn = FindViewById<Button>(Resource.Id.saveButton);
+            savebtn.Click += delegate
+            {
+                var settings = this.SettingsProvider.GetSettings();
+
+                CheckBox useSoundCB = FindViewById<CheckBox>(Resource.Id.notificationUseSound);
+                CheckBox vibrateCB = FindViewById<CheckBox>(Resource.Id.notificationVibrate);
+                StartActivity(typeof(MainActivity));
+            };
         }
     }
 }

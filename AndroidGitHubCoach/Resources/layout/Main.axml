@@ -30,17 +30,16 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp" />
             <Button
-                android:text="UserName"
+                android:text="⚙"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/username"
+                android:id="@+id/settingsButton"
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                android:layout_marginRight="20dp" />
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="150dp" />
         </LinearLayout>
         <TextView
             android:text="Last Commit"

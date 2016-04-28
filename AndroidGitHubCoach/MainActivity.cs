@@ -65,8 +65,7 @@ namespace AndroidGitHubCoach
             }
             else
             {
-                Button btn = FindViewById<Button>(Resource.Id.username);
-                btn.Text = settings.UserName;
+                Button btn = FindViewById<Button>(Resource.Id.settingsButton);
                 btn.Click += delegate
                 {
                     StartActivity(typeof(SettingsActivity));

@@ -12,11 +12,11 @@ namespace AndroidGitHubCoach.Model
 {
     public class NetCachedEventsProvider : IEventsProvider
     {
-        IUserProvider UserProvider;
         IRepository FileRepository;
+        ISettingsProvider SettingsProvider;
         public NetCachedEventsProvider()
         {
-            this.UserProvider = TinyIoCContainer.Current.Resolve<IUserProvider>();
+            this.SettingsProvider = TinyIoCContainer.Current.Resolve<ISettingsProvider>();
             this.FileRepository = TinyIoCContainer.Current.Resolve<IRepository>();
         }
         public List<Event> GetEvents(Context context)
@@ -33,7 +33,7 @@ namespace AndroidGitHubCoach.Model
         {
             var id = context.Resources.GetString(Resource.String.clientid);
             var secret = context.Resources.GetString(Resource.String.clientsecret);
-            var url = new Uri(@"https://api.github.com/users/" + this.UserProvider.GetUserName() + @"/events" + 
+            var url = new Uri(@"https://api.github.com/users/" + this.SettingsProvider.GetSettings().UserName + @"/events" + 
                 (string.IsNullOrWhiteSpace(id) ? "" : "?client_id=" + id + "&client_secret=" + secret));
             var events = FetchEvents(url);
             this.FileRepository.StoreData<List<Event>>("events", events);

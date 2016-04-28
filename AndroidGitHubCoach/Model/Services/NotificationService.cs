@@ -13,7 +13,7 @@ namespace AndroidGitHubCoach.Model.Services
     public class NotificationService : Android.App.IntentService
     {
         IEventsProvider EventsProvider;
-        IUserProvider UserProvider;
+        ISettingsProvider SettingsProvider;
         public NotificationService()
         {
             if (!TinyIoCContainer.Current.TryResolve<IEventsProvider>(out this.EventsProvider))
@@ -21,7 +21,7 @@ namespace AndroidGitHubCoach.Model.Services
                 Bootstrapper.Run();
                 this.EventsProvider = TinyIoCContainer.Current.Resolve<IEventsProvider>();
             }
-            this.UserProvider = TinyIoCContainer.Current.Resolve<IUserProvider>();
+            this.SettingsProvider = TinyIoCContainer.Current.Resolve<ISettingsProvider>();
         }
 
         [return: GeneratedEnum]
@@ -33,7 +33,8 @@ namespace AndroidGitHubCoach.Model.Services
 
         protected override void OnHandleIntent(Intent intent)
         {
-            if (string.IsNullOrWhiteSpace(this.UserProvider.GetUserName()))
+            var settings = this.SettingsProvider.GetSettings();
+            if (settings == null || string.IsNullOrWhiteSpace(settings.UserName))
                 return;
             this.EventsProvider.Refresh(this.ApplicationContext);
             var events = this.EventsProvider.GetEvents(this.ApplicationContext);
@@ -49,9 +50,13 @@ namespace AndroidGitHubCoach.Model.Services
         protected void ShowNotification(string message)
         {
             Notification.Builder builder = new Notification.Builder(this)
-                .SetContentTitle("GitHub Coach - " + this.UserProvider.GetUserName())
+                .SetContentTitle("GitHub Coach - " + this.SettingsProvider.GetSettings().UserName)
                 .SetContentText(message)
                 .SetSmallIcon(Resource.Drawable.Icon);
+
+            var settings = this.SettingsProvider.GetSettings();
+
+            builder.SetDefaults((settings.MakeSoundNotification ? NotificationDefaults.Sound : 0) | (settings.VibrateNotification ? NotificationDefaults.Vibrate : 0));
 
             Notification notification = builder.Build();
 
