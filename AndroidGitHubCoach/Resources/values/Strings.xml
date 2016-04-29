@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="Hello">Hello World, Click Me!</string>
-    <string name="ApplicationName">AndroidGitHubCoach</string>
-    <string name="Title">GitHub Coach</string>
+  <string name="Hello">Hello World, Click Me!</string>
+  <string name="ApplicationName">AndroidGitHubCoach</string>
+  <string name="Title">GitHub Coach</string>
+  <string-array name="lengthsOfTime">
+    <item>Fifteen minutes</item>
+    <item>Half an hour</item>
+    <item>Every hour</item>
+  </string-array>
 </resources>
