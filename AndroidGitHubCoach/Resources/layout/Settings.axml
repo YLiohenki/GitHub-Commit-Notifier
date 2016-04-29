@@ -31,16 +31,19 @@
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout1">
         <TextView
-            android:text="Medium Text"
+            android:text="Check period:"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:height="25dp"
+            android:layout_gravity="center"
+            android:gravity="center" />
         <Spinner
-            android:id="@+id/spinner1"
+            android:id="@+id/periodOfServiceSpinner"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:entries="@array/lengthsOfTime" />
+            android:entries="@array/periodOfService" />
     </LinearLayout>
     <Button
         android:text="Save"

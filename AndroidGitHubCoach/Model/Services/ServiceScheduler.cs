@@ -1,6 +1,7 @@
 using Android.App;
 using Android.Content;
 using Android.OS;
+using TinyIoC;
 
 namespace AndroidGitHubCoach.Model.Services
 {
@@ -8,10 +9,11 @@ namespace AndroidGitHubCoach.Model.Services
     {
         public static void Schedule(Context context)
         {
+            var settingsProvider = TinyIoCContainer.Current.Resolve<ISettingsProvider>();
             var alarm = (AlarmManager)context.GetSystemService(Context.AlarmService);
             var notificationServiceIntent = new Intent("com.YLiohenki.GitHubCoach.NotificationIntent");
             var pendingServiceIntent = PendingIntent.GetService(context, 0, notificationServiceIntent, PendingIntentFlags.CancelCurrent);
-            alarm.SetRepeating(AlarmType.Rtc, SystemClock.ElapsedRealtime(), AlarmManager.IntervalHalfHour, pendingServiceIntent);
+            alarm.SetRepeating(AlarmType.Rtc, SystemClock.ElapsedRealtime(), settingsProvider.GetSettings().PeriodNotification, pendingServiceIntent);
         }
     }
 }

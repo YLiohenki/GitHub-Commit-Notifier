@@ -40,15 +40,45 @@ namespace AndroidGitHubCoach
             var settings = this.SettingsProvider.GetSettings();
             CheckBox useSoundCB = FindViewById<CheckBox>(Resource.Id.notificationUseSound);
             CheckBox vibrateCB = FindViewById<CheckBox>(Resource.Id.notificationVibrate);
+            Spinner periodSpinner = FindViewById<Spinner>(Resource.Id.periodOfServiceSpinner);
             useSoundCB.Checked = settings.MakeSoundNotification;
             vibrateCB.Checked = settings.VibrateNotification;
-
+            switch (settings.PeriodNotification)
+            {
+                case AlarmManager.IntervalFifteenMinutes:
+                    periodSpinner.SetSelection(0);
+                    break;
+                case AlarmManager.IntervalHalfHour:
+                    periodSpinner.SetSelection(1);
+                    break;
+                case AlarmManager.IntervalHour:
+                    periodSpinner.SetSelection(2);
+                    break;
+                default:
+                    settings.PeriodNotification = AlarmManager.IntervalHalfHour;
+                    break;
+            }
 
             Button savebtn = FindViewById<Button>(Resource.Id.saveButton);
             savebtn.Click += delegate
             {
                 settings.MakeSoundNotification = useSoundCB.Checked;
                 settings.VibrateNotification = vibrateCB.Checked;
+                switch (periodSpinner.SelectedItemPosition)
+                {
+                    case 0:
+                        settings.PeriodNotification = AlarmManager.IntervalFifteenMinutes;
+                        break;
+                    case 1:
+                        settings.PeriodNotification = AlarmManager.IntervalHalfHour;
+                        break;
+                    case 2:
+                        settings.PeriodNotification = AlarmManager.IntervalHour;
+                        break;
+                    default:
+                        settings.PeriodNotification = AlarmManager.IntervalHalfHour;
+                        break;
+                }
                 this.SettingsProvider.SetSettings(settings);
                 
                 StartActivity(typeof(MainActivity));

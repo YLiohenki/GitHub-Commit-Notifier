@@ -32,7 +32,7 @@ namespace AndroidGitHubCoach
 		{
 			
 			// aapt resource value: 0x7f050000
-			public const int lengthsOfTime = 2131034112;
+			public const int periodOfService = 2131034112;
 			
 			static Array()
 			{
@@ -103,14 +103,14 @@ namespace AndroidGitHubCoach
 			// aapt resource value: 0x7f06000c
 			public const int notificationVibrate = 2131099660;
 			
+			// aapt resource value: 0x7f06000d
+			public const int periodOfServiceSpinner = 2131099661;
+			
 			// aapt resource value: 0x7f06000e
 			public const int saveButton = 2131099662;
 			
 			// aapt resource value: 0x7f060007
 			public const int settingsButton = 2131099655;
-			
-			// aapt resource value: 0x7f06000d
-			public const int spinner1 = 2131099661;
 			
 			// aapt resource value: 0x7f060000
 			public const int textView1 = 2131099648;
@@ -167,12 +167,6 @@ namespace AndroidGitHubCoach
 			
 			// aapt resource value: 0x7f040002
 			public const int Title = 2130968578;
-			
-			// aapt resource value: 0x7f040003
-			public const int clientid = 2130968579;
-			
-			// aapt resource value: 0x7f040004
-			public const int clientsecret = 2130968580;
 			
 			static String()
 			{

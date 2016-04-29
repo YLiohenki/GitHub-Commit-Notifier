@@ -17,5 +17,6 @@ namespace AndroidGitHubCoach.Model
         public String UserName { get; set; }
         public bool MakeSoundNotification { get; set; }
         public bool VibrateNotification { get; set; }
+        public long PeriodNotification { get; set; } = AlarmManager.IntervalHalfHour;
     }
 }

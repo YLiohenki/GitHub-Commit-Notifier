@@ -3,7 +3,7 @@
   <string name="Hello">Hello World, Click Me!</string>
   <string name="ApplicationName">AndroidGitHubCoach</string>
   <string name="Title">GitHub Coach</string>
-  <string-array name="lengthsOfTime">
+  <string-array name="periodOfService">
     <item>Fifteen minutes</item>
     <item>Half an hour</item>
     <item>Every hour</item>
