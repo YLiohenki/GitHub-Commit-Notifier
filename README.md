@@ -12,3 +12,4 @@ Also it shows number of your commits for this week.
 ## Installation
 
 Currently you have to build it yourself with Xamarin. Going to resolve it in couple of days.
+
