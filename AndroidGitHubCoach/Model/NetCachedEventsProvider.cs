@@ -7,6 +7,7 @@ using System.Json;
 using System.Threading.Tasks;
 using System.IO;
 using Android.Content;
+using System.Linq;
 
 namespace AndroidGitHubCoach.Model
 {
@@ -33,9 +34,17 @@ namespace AndroidGitHubCoach.Model
         {
             var id = context.Resources.GetString(Resource.String.clientid);
             var secret = context.Resources.GetString(Resource.String.clientsecret);
-            var url = new Uri(@"https://api.github.com/users/" + this.SettingsProvider.GetSettings().UserName + @"/events" + 
-                (string.IsNullOrWhiteSpace(id) ? "" : "?client_id=" + id + "&client_secret=" + secret));
-            var events = FetchEvents(url);
+            List<Event> events = new List<Event>();
+            var page = 1;
+            while (page <= 10 && events.All(x => x.Time > DateTime.UtcNow.AddDays(-7)))
+            {
+                var url = new Uri(@"https://api.github.com/users/" + this.SettingsProvider.GetSettings().UserName + @"/events" +
+                    (string.IsNullOrWhiteSpace(id) ? "?" : "?client_id=" + id + "&client_secret=" + secret + "&") + "page=" + page);
+                var toAdd = FetchEvents(url);
+                if (toAdd == null || toAdd.Count == 0)
+                    break;
+                events.AddRange(FetchEvents(url));
+            }
             this.FileRepository.StoreData<List<Event>>("events", events);
         }
 
