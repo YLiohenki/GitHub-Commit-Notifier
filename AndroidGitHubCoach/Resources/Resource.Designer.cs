@@ -168,6 +168,12 @@ namespace AndroidGitHubCoach
 			// aapt resource value: 0x7f040002
 			public const int Title = 2130968578;
 			
+			// aapt resource value: 0x7f040003
+			public const int clientid = 2130968579;
+			
+			// aapt resource value: 0x7f040004
+			public const int clientsecret = 2130968580;
+			
 			static String()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();

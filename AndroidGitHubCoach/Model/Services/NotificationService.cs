@@ -36,6 +36,14 @@ namespace AndroidGitHubCoach.Model.Services
             var settings = this.SettingsProvider.GetSettings();
             if (settings == null || string.IsNullOrWhiteSpace(settings.UserName))
                 return;
+
+            var oldEvents = this.EventsProvider.GetEvents(this.ApplicationContext);
+            var todayOldEvents = oldEvents.Where(x => x.Time.Date == DateTime.Now.Date);
+            if (todayOldEvents.Count() > 0)
+            {
+                return;
+            }
+
             this.EventsProvider.Refresh(this.ApplicationContext);
             var events = this.EventsProvider.GetEvents(this.ApplicationContext);
             if (events == null)
