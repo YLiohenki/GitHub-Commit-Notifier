@@ -35,9 +35,10 @@ namespace AndroidGitHubCoach.Model
             var id = context.Resources.GetString(Resource.String.clientid);
             var secret = context.Resources.GetString(Resource.String.clientsecret);
             List<Event> events = new List<Event>();
-            var page = 1;
+            var page = 0;
             while (page <= 10 && events.All(x => x.Time > DateTime.UtcNow.AddDays(-7)))
             {
+                ++page;
                 var url = new Uri(@"https://api.github.com/users/" + this.SettingsProvider.GetSettings().UserName + @"/events" +
                     (string.IsNullOrWhiteSpace(id) ? "?" : "?client_id=" + id + "&client_secret=" + secret + "&") + "page=" + page);
                 var toAdd = FetchEvents(url);
