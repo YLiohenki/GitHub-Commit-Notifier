@@ -32,21 +32,24 @@ namespace AndroidGitHubCoach.Model
 
         public void Refresh(Context context)
         {
+            var oldEvents = this.FileRepository.FetchData<List<Event>>("events");
+            var recentEventTime = oldEvents.Any() ? oldEvents.Max(x => x.Time) : DateTime.MinValue;
             var id = context.Resources.GetString(Resource.String.clientid);
             var secret = context.Resources.GetString(Resource.String.clientsecret);
             List<Event> events = new List<Event>();
             var page = 0;
-            while (page <= 10 && events.All(x => x.Time > DateTime.UtcNow.AddDays(-7)))
+            while (page <= 10)
             {
                 ++page;
                 var url = new Uri(@"https://api.github.com/users/" + this.SettingsProvider.GetSettings().UserName + @"/events" +
                     (string.IsNullOrWhiteSpace(id) ? "?" : "?client_id=" + id + "&client_secret=" + secret + "&") + "page=" + page);
                 var toAdd = FetchEvents(url);
-                if (toAdd == null || toAdd.Count == 0)
+                if (toAdd == null || toAdd.Count == 0 || toAdd.Min(x => x.Time) < recentEventTime)
                     break;
-                events.AddRange(FetchEvents(url));
+                events.AddRange(toAdd);
             }
-            this.FileRepository.StoreData<List<Event>>("events", events);
+            oldEvents.AddRange(events.Where(e => e.Time > recentEventTime).ToList());
+            this.FileRepository.StoreData<List<Event>>("events", oldEvents);
         }
 
         private List<Event> FetchEvents(Uri url)
