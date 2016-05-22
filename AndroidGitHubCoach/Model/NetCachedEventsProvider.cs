@@ -44,9 +44,9 @@ namespace AndroidGitHubCoach.Model
                 var url = new Uri(@"https://api.github.com/users/" + this.SettingsProvider.GetSettings().UserName + @"/events" +
                     (string.IsNullOrWhiteSpace(id) ? "?" : "?client_id=" + id + "&client_secret=" + secret + "&") + "page=" + page);
                 var toAdd = FetchEvents(url);
+                events.AddRange(toAdd ?? new List<Event>());
                 if (toAdd == null || toAdd.Count == 0 || toAdd.Min(x => x.Time) < recentEventTime)
                     break;
-                events.AddRange(toAdd);
             }
             oldEvents.AddRange(events.Where(e => e.Time > recentEventTime).ToList());
             this.FileRepository.StoreData<List<Event>>("events", oldEvents);

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using BarChart;
 using System.Collections.Generic;
 using AndroidGitHubCoach.Model.Services;
+using System.Globalization;
 
 namespace AndroidGitHubCoach
 {
@@ -70,6 +71,18 @@ namespace AndroidGitHubCoach
                 {
                     StartActivity(typeof(SettingsActivity));
                 };
+
+                Button graphPeriodBtn = FindViewById<Button>(Resource.Id.graphPeriod);
+                graphPeriodBtn.Click += delegate
+                {
+                    settings = this.SettingsProvider.GetSettings();
+                    if (settings.GraphPeriod == Settings.Period.Week)
+                        settings.GraphPeriod = Settings.Period.Days30;
+                    else
+                        settings.GraphPeriod = Settings.Period.Week;
+                    this.SettingsProvider.SetSettings(settings);
+                    this.FillUIWIthEvents();
+                };
             }
             Task.Run(() =>
             {
@@ -88,14 +101,25 @@ namespace AndroidGitHubCoach
         {
             this.EventsProvider.Refresh(this.ApplicationContext);
             var events = this.EventsProvider.GetEvents(this.ApplicationContext);
-            DateTime startOfWeek = DateTime.Today.AddDays(-1 * (int)(DateTime.Today.DayOfWeek));
-            var numbers = Enumerable.Range(0, 7);
+            var settings = this.SettingsProvider.GetSettings();
+            DateTime startDay;
+            IEnumerable<int> numbers;
+            if (settings.GraphPeriod == Settings.Period.Week)
+            {
+                startDay = DateTime.Today.AddDays(-1 * (int)(DateTime.Today.DayOfWeek));
+                numbers = Enumerable.Range(0, 7);
+            }
+            else
+            {
+                startDay = DateTime.Today.AddDays(-29);
+                numbers = Enumerable.Range(0, 30);
+            }
             var lastCommitView = FindViewById<TextView>(Resource.Id.lastCommitText);
             events.Sort((a, b) => (a.Time > b.Time ? -1 : (a.Time < b.Time ? 1 : 0)));
             var groups = numbers.Select(x =>
             {
-                var dayEvents = events.Where(e => e.Time.Date == startOfWeek.AddDays(x));
-                return new Tuple<int, DateTime>(dayEvents.Count(), startOfWeek.AddDays(x));
+                var dayEvents = events.Where(e => e.Time.Date == startDay.AddDays(x));
+                return new Tuple<int, DateTime>(dayEvents.Count(), startDay.AddDays(x));
             });
             LinearLayout bottomLayout = FindViewById<LinearLayout>(Resource.Id.bottomLayout);
             if (events.Count > 0)
@@ -112,10 +136,17 @@ namespace AndroidGitHubCoach
         protected void ShowBarchat(IEnumerable<Tuple<int, DateTime>> groups)
         {
             LinearLayout bottomLayout = FindViewById<LinearLayout>(Resource.Id.bottomLayout);
+            var settings = this.SettingsProvider.GetSettings();
 
             var chart = new BarChartView(this)
             {
-                ItemsSource = groups.Select(g => new BarModel { Value = g.Item1, Legend = g.Item2.DayOfWeek.ToString().Substring(0,2) })
+                ItemsSource = groups.Select(g => new BarModel
+                {
+                    Value = g.Item1,
+                    Legend = settings.GraphPeriod == Settings.Period.Week ?
+                        g.Item2.DayOfWeek.ToString().Substring(0, 2) :
+                        CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Item2.Month).Substring(0, 2) + "/" + g.Item2.Day
+                })
             };
 
             bottomLayout.AddView(chart, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FillParent, ViewGroup.LayoutParams.FillParent));

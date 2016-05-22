@@ -60,6 +60,12 @@
             android:id="@+id/lastCommitText"
             android:gravity="center_horizontal"
             android:textSize="30dp" />
+        <Button
+            android:text="Graph Period"
+            android:layout_height="wrap_content"
+            android:id="@+id/graphPeriod"
+            android:layout_marginLeft="190dp"
+            android:layout_width="match_parent" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/bottomLayout"
