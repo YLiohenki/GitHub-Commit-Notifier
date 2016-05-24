@@ -26,7 +26,7 @@
                 android:text="@string/Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView2"
+                android:id="@+id/usernameLabel"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp" />
             <Button

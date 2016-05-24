@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndroidGitHubCoach", "AndroidGitHubCoach\AndroidGitHubCoach.csproj", "{CA77DBA0-BFEF-4CA0-90EB-299367107E26}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndroidGitHubCommitNotifier", "AndroidGitHubCoach\AndroidGitHubCommitNotifier.csproj", "{CA77DBA0-BFEF-4CA0-90EB-299367107E26}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{32CC78D0-D227-48C9-84DA-09ECD75A9444}"
 EndProject

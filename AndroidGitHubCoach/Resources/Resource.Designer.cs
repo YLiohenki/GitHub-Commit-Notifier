@@ -106,11 +106,11 @@ namespace AndroidGitHubCoach
 			// aapt resource value: 0x7f06000d
 			public const int notificationVibrate = 2131099661;
 			
-			// aapt resource value: 0x7f06000e
-			public const int periodOfServiceSpinner = 2131099662;
-			
 			// aapt resource value: 0x7f06000f
-			public const int saveButton = 2131099663;
+			public const int periodOfServiceSpinner = 2131099663;
+			
+			// aapt resource value: 0x7f060010
+			public const int saveButton = 2131099664;
 			
 			// aapt resource value: 0x7f060007
 			public const int settingsButton = 2131099655;
@@ -118,14 +118,17 @@ namespace AndroidGitHubCoach
 			// aapt resource value: 0x7f060000
 			public const int textView1 = 2131099648;
 			
-			// aapt resource value: 0x7f060006
-			public const int textView2 = 2131099654;
+			// aapt resource value: 0x7f06000e
+			public const int textView2 = 2131099662;
 			
 			// aapt resource value: 0x7f060004
 			public const int topLayout = 2131099652;
 			
 			// aapt resource value: 0x7f06000b
 			public const int usernameButton = 2131099659;
+			
+			// aapt resource value: 0x7f060006
+			public const int usernameLabel = 2131099654;
 			
 			static Id()
 			{
@@ -170,12 +173,6 @@ namespace AndroidGitHubCoach
 			
 			// aapt resource value: 0x7f040002
 			public const int Title = 2130968578;
-			
-			// aapt resource value: 0x7f040003
-			public const int clientid = 2130968579;
-			
-			// aapt resource value: 0x7f040004
-			public const int clientsecret = 2130968580;
 			
 			static String()
 			{

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="Hello">Hello World, Click Me!</string>
-  <string name="ApplicationName">AndroidGitHubCoach</string>
-  <string name="Title">GitHub Coach</string>
+  <string name="ApplicationName">GitHubCommitNotifier</string>
+  <string name="Title">GitHub Commit Notifier</string>
   <string-array name="periodOfService">
     <item>Fifteen minutes</item>
     <item>Half an hour</item>

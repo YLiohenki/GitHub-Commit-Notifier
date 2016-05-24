@@ -15,7 +15,7 @@ using System.Globalization;
 
 namespace AndroidGitHubCoach
 {
-    [Activity(Label = "GitHub Coach", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "GitHub Commit Notifier", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
         IEventsProvider EventsProvider;
@@ -83,6 +83,9 @@ namespace AndroidGitHubCoach
                     this.SettingsProvider.SetSettings(settings);
                     this.FillUIWIthEvents();
                 };
+
+                TextView usernameLabel = FindViewById<TextView>(Resource.Id.usernameLabel);
+                usernameLabel.Text = settings.UserName;
             }
             Task.Run(() =>
             {
