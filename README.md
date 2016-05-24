@@ -1,5 +1,5 @@
 # GitHubCoach
-Github Coach is an android app to help you keep your commits streak. Check out project's page: http://liohenki.com/Projects/GitHubCoach .
+Github Coach is an android app to help you keep your commits streak. Check out project's page: http://www.liohenki.com/Projects/GitHubCommitNotifier .
 
 It shows your commits for last month/week and how long is your current streak. It also shows notification after 2 PM, if you haven't commit today yet.
 
