@@ -7,5 +7,6 @@ namespace AndroidGitHubContributeNotifier.Model
     {
         List<Event> GetEvents(Context context);
         void Refresh(Context context);
+        void Clear(Context context);
     }
 }

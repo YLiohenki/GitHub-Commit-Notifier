@@ -18,9 +18,11 @@ namespace AndroidGitHubContributeNotifier
     public class LoginActivity : Activity
     {
         ISettingsProvider SettingsProvider;
+        IEventsProvider EventsProvider;
         public LoginActivity()
         {
             this.SettingsProvider = TinyIoCContainer.Current.Resolve<ISettingsProvider>();
+            this.EventsProvider = TinyIoCContainer.Current.Resolve<IEventsProvider>();
         }
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -43,6 +45,7 @@ namespace AndroidGitHubContributeNotifier
                 var settings = this.SettingsProvider.GetSettings();
                 settings.UserName = username;
                 this.SettingsProvider.SetSettings(settings);
+                this.EventsProvider.Clear(this.ApplicationContext);
                 StartActivity(typeof(MainActivity));
             }
         }

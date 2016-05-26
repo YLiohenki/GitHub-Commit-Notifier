@@ -141,6 +141,8 @@ namespace AndroidGitHubContributeNotifier
         {
             LinearLayout bottomLayout = FindViewById<LinearLayout>(Resource.Id.bottomLayout);
             var settings = this.SettingsProvider.GetSettings();
+            var metrics = Resources.DisplayMetrics;
+            var leftLegendWidth = 100f;
 
             var chart = new BarChartView(this)
             {
@@ -154,7 +156,7 @@ namespace AndroidGitHubContributeNotifier
                         g.Item3 == 29 ? "T" : (g.Item3 == 0 ? g.Item2.Day.ToString() : ""),
                     Color = g.Item3 == 29 ? Android.Graphics.Color.Blue : Android.Graphics.Color.LightBlue
                 }),
-                BarWidth = settings.GraphPeriod == Settings.Period.Week ? 94 : 21,
+                BarWidth = (metrics.WidthPixels - leftLegendWidth) / groups.Count(),
                 BarOffset = 0
             };
 

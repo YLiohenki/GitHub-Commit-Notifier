@@ -20,6 +20,12 @@ namespace AndroidGitHubContributeNotifier.Model
             this.SettingsProvider = TinyIoCContainer.Current.Resolve<ISettingsProvider>();
             this.FileRepository = TinyIoCContainer.Current.Resolve<IRepository>();
         }
+
+        public void Clear(Context context)
+        {
+            this.FileRepository.StoreData<List<Event>>("events", new List<Event>());
+        }
+
         public List<Event> GetEvents(Context context)
         {
             var events = this.FileRepository.FetchData<List<Event>>("events");
