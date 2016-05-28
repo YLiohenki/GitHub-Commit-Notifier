@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="AndroidGitHubContributeNotifier.AndroidGitHubContributeNotifier" android:versionCode="1" android:versionName="1.0" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.YLiohenki.AndroidGitHubContributeNotifier" android:versionCode="2" android:versionName="1.0.1" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="15" />
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-	<application android:label="AndroidGitHubContributeNotifier" android:icon="@drawable/Icon"></application>
+	<uses-permission android:name="android.permission.INTERNET" />
+	<application android:label="GitHubContributeNotifier" android:icon="@drawable/Icon"></application>
 	<service android:exported="false" android:name="com.YLiohenki.GitHubContributeNotifier.NotificationService" android:enabled="true"></service>
 	<receiver android:name="com.YLiohenki.GitHubContributeNotifier.BootReceiver">
 		<intent-filter>
