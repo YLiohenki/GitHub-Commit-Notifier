@@ -53,7 +53,7 @@
             android:gravity="center_horizontal"
             android:height="50dp" />
         <TextView
-            android:text="01/01/2016"
+            android:text="Loading..."
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
