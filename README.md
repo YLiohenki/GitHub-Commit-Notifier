@@ -1,5 +1,5 @@
 # GitHub Contribute Notifier
-Github Contribute Notifier is an android app to help you keep your commits streak. Build with Xamarin. Check out project's page: http://www.liohenki.com/Projects/GitHubContributeNotifier .
+Github Contribute Notifier is an android app to help you keep your commits streak. Build with Xamarin. Check out project's page: http://www.liohenki.com/Projects/GitHubContributeNotifier . Google play page: https://play.google.com/store/apps/details?id=com.YLiohenki.AndroidGitHubContributeNotifier .
 
 It shows your commits for last month/week and how long is your current streak. It also shows notification after 2 PM, if you have not any commits today yet.
 
