@@ -9,7 +9,8 @@ It shows your commits for last month/week and how long is your current streak. I
 
 ## Installation
 
-~~Currently you have to build it yourself with Xamarin. Going to resolve soon.~~
+~~Currently you have to build it yourself with Xamarin. Going to resolve it soon.~~
+
 Download it from google play: https://play.google.com/store/apps/details?id=com.YLiohenki.AndroidGitHubContributeNotifier .
 
 ## What's being used
