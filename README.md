@@ -16,5 +16,6 @@ Download it from google play: https://play.google.com/store/apps/details?id=com.
 ## What's being used
 
 Xamarin (without Xamarin.Forms)
+
 BarChart for Xamarin https://components.xamarin.com/view/barchart
 
