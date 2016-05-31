@@ -23,7 +23,7 @@
                 android:textSize="20sp"
                 android:paddingTop="30dp"
                 android:paddingBottom="30dp"
-                android:text="@string/Title"
+                android:text="UserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/usernameLabel"
@@ -39,9 +39,9 @@
                 android:foreground="@drawable/settingsicon"
                 android:height="50dp"
                 android:width="50dp"
-                android:layout_marginLeft="130dp"
                 android:foregroundGravity="fill"
-                android:background="@drawable/settingsicon" />
+                android:background="@drawable/settingsicon"
+                android:layout_marginRight="30dp" />
         </LinearLayout>
         <TextView
             android:text="Last Commit"
